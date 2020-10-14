@@ -155,38 +155,35 @@ def preprocess(data):
 	return np.hstack([resMat,pTheta])
 
 # Estimating steady-state
-def estimate_pss(qvec,thresh=5,num_neighb=None,returnModel=False):
+def estimate_pss(qseed,qss=None,thresh=5,num_neighb=None,returnModel=False):
     # Make N >> d
-    d = np.min(qvec.shape)
-    L = np.max(qvec.shape)
+    d = np.min(qseed.shape)
+    L = np.max(qseed.shape)
     N = 3*d if num_neighb is None else num_neighb
-    
+    qss_vec = np.copy(qseed) if qss is None else qss
+
     # Instantiate NN model
     knn = NearestNeighbors(n_neighbors=N)
-    knn.fit(qvec)
-    neighborhoods = knn.kneighbors(qvec,N,return_distance=False) # get neighbors
-    
+    knn.fit(qseed)
+    neighborhoods = knn.kneighbors(qseed,N,return_distance=False) # get neighbors
+
     # Calculate neighborhood volume
-    var_tensors = [np.cov(qvec[neighborhoods[i]].T) for i in range(L)] # get variance tensor over neighborhoods
+    var_tensors = [np.cov(qseed[neighborhoods[i]].T) for i in range(L)] # get variance tensor over neighborhoods
     vol_list = np.array([np.sqrt(np.linalg.det(var_tensors[i])) for i in range(L)])
-    
+
     # Calculate inner-product over variance tensor
     var_prods = []
     for i in range(L):
         temp = []
-        for q_p in qvec:
-            temp.append((q_p-qvec[i]).dot(np.linalg.inv(var_tensors[i])).dot((q_p-qvec[i]).T))
+        for q_p in qss_vec:
+            temp.append((q_p-qseed[i]).dot(np.linalg.inv(var_tensors[i])).dot((q_p-qseed[i]).T))
         var_prods.append(temp)
-    
+
     # Estimate probability given by counting fraction of points within some radius
-    thresh = 5
-    prob_list = np.array([len(np.where(np.array(v)<thresh)[0])/L for v in var_prods])
-    
-    # Get probability density
-    p_ss = prob_list/vol_list
-    
-    # Outputs
+    prob_list = np.array([len(np.where(np.array(v)<thresh)[0])/float(len(v)) for v in var_prods])
+
+    # Output probability density
     if returnModel:
-        return p_ss, knn
+        return prob_list/vol_list, knn
     else:
-        return p_ss
+        return prob_list/vol_list
