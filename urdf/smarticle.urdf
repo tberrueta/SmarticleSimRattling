@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="simulation_assembly">
+  <link
+    name="base_link">
+    <contact>
+        <lateral_friction value="0.15"/>
+        <angular_friction value="0.3"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="0 0 0.01515"
+        rpy="0 0 0" />
+      <mass
+        value="0.033918" />
+      <inertia
+        ixx="1.0837E-05"
+        ixy="0"
+        ixz="0"
+        iyy="5.1389E-06"
+        iyz="0"
+        izz="1.0786E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="gray">
+        <color
+          rgba="0.4 0.4 0.4 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="arm_left">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="0.029809 -0.018645 5.48789273350911E-19"
+        rpy="0 0 0" />
+      <mass
+        value="0.0039781" />
+      <inertia
+        ixx="5.233E-07"
+        ixy="-8.0787E-08"
+        ixz="0"
+        iyy="6.4754E-07"
+        iyz="0"
+        izz="1.1611E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0.36 0.54 0.66 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="servo_left"
+    type="revolute">
+    <origin
+      xyz="-0.0015 0.0212 0.001"
+      rpy="0 0 1.57075" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_left" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.8"
+      upper="1.8"
+      effort="0.01"
+      velocity="6" />
+  </joint>
+  <link
+    name="arm_right">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="0.029809 -0.018645 5.48789273350911E-19"
+        rpy="0 0 0" />
+      <mass
+        value="0.0039781" />
+      <inertia
+        ixx="5.233E-07"
+        ixy="-8.0787E-08"
+        ixz="0"
+        iyy="6.4754E-07"
+        iyz="0"
+        izz="1.1611E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="0.83 0.13 0.18 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="servo_right"
+    type="revolute">
+    <origin
+      xyz="-0.0015 -0.0212 0.001"
+      rpy="0 0 -1.57075" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_right" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.8"
+      upper="1.8"
+      effort="0.01"
+      velocity="6" />
+  </joint>
+</robot>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="part1">
+  <link name="ring">
+  <contact>
+      <lateral_friction value="0.15"/>
+      <angular_friction value="0.1"/>
+  </contact>
+    <inertial>
+      <origin
+        xyz="0 0.005"
+        rpy="0 0 0" />
+      <mass value="0.019132" />
+      <inertia
+        ixx="9.8734E-05"
+        ixy="0"
+        ixz="0"
+        iyy="9.8734E-05"
+        iyz="0"
+        izz="0.00019715" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/20mm_ring.STL" scale="0.93 0.93 0.93" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/20mm_ring.obj" scale="1 1 1" />
+      </geometry>
+    </collision>
+  </link>
+</robot>
